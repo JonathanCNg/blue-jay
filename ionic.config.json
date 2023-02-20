@@ -1,0 +1,8 @@
+{
+  "name": "BlueJay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "9706d120"
+}
