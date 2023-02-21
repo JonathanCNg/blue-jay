@@ -24,7 +24,7 @@ const Tab1: React.FC = () => {
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Geolocation</IonTitle>
+            <IonTitle size="large">Can I have your location uWuUuWuWu 🫣🙃🫣</IonTitle>
           </IonToolbar>
         </IonHeader>
 
