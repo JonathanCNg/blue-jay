@@ -12,7 +12,6 @@ function Tab4() {
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
 
     fetch (url)
-    // fetch ("https://justcors.com/tl_85f1dc7/https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=60.18852&long=-149.63156")
       .then((response) => response.json())
       .then((actualData) => {
         console.log(actualData);
