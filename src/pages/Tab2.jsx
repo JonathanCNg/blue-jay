@@ -55,7 +55,7 @@ const Tab2 = () => {
 
         <IonRow className="ion-margin-start ion-margin-end ion-justify-content-center ion-text-center">
           <IonCol size="12">
-            <h4>Here's your weather BAEE 😘😘😘😘</h4>
+            <h4>Weather Summary</h4>
           </IonCol>
         </IonRow>
 

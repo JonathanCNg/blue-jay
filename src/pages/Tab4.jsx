@@ -7,7 +7,7 @@ function Tab4() {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     const position = await Geolocation.getCurrentPosition();
-    var radius = "5";
+    var radius = "250";
     var count = "3";
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
 
