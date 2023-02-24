@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
-import "./Tab4.css";
+import "./Tab3.css";
 import { IonPage } from "@ionic/react";
 
-function Tab4() {
+function Tab3() {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     const position = await Geolocation.getCurrentPosition();
@@ -81,4 +81,4 @@ function Tab4() {
   );
 }
 
-export default Tab4;
+export default Tab3;
