@@ -12,7 +12,7 @@ export const WeatherProperty = ({type, currentWeather}) => {
       isIcon: false,
       icon: "/assets/wind.png",
       alt: "wind",
-      label: "PUFFS💨💨💨",
+      label: "Wind",
       value: `${currentWeather.current.wind_mph}mph`
     },
     feelsLike: {
@@ -20,7 +20,7 @@ export const WeatherProperty = ({type, currentWeather}) => {
       isIcon: true,
       icon: thermometerOutline,
       alt: "feels like",
-      label: "YO IT ALWAYS FEELS HOTTER THAN MY MIXTAPE 🔥🔥🔥🔥",
+      label: "Feels like",
       value: `${currentWeather.current.feelslike_c}°C`
     },
     indexUV: {
@@ -28,7 +28,7 @@ export const WeatherProperty = ({type, currentWeather}) => {
       isIcon: true,
       icon: sunnyOutline,
       alt: "index uv",
-      label: "SUN RAY POWER ☀️☀️☀️",
+      label: "UV Index",
       value: currentWeather.current.uv
     },
     pressure: {
@@ -36,7 +36,7 @@ export const WeatherProperty = ({type, currentWeather}) => {
       isIcon: true,
       icon: pulseOutline,
       alt: "pressure",
-      label: "HEAD SQUEEEZE",
+      label: "Pressure",
       value: `${currentWeather.current.pressure_mb} mbar`
     }
   };
