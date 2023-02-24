@@ -1,3 +1,4 @@
+import Reach from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -9,6 +10,7 @@ import {
   IonTabs,
   setupIonicReact
 } from '@ionic/react';
+import { logoIonic, personOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
@@ -71,8 +73,8 @@ const App: React.FC = () => (
             <IonIcon icon={square} />
             <IonLabel>Tab 3</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab4" href="/tab4">
-            <IonIcon icon={square} />
+          <IonTabButton tab="Profile" href="/profile">
+            <IonIcon icon={personOutline}></IonIcon>
             <IonLabel>Tab 4</IonLabel>
           </IonTabButton>
         </IonTabBar>
