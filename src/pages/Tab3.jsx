@@ -10,7 +10,7 @@ function Tab3() {
     var radius = "250";
     var count = "3";
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
-
+    console.log (url)
     fetch (url)
       .then((response) => response.json())
       .then((actualData) => {
@@ -29,11 +29,12 @@ function Tab3() {
   
   return (
   <IonPage>
-    <div className="App">
-      <table>
+    <div class = "center">
+      <table class = "styled-table">
         <thead>
           <tr>
             <th>Trail ID</th>
+            <th>Distance</th>
             <th>Name</th>
             <th>Area Name</th>
             <th>City Name</th>
@@ -56,6 +57,7 @@ function Tab3() {
         {data?.map((item, index) => (
           <tr key={index}>
             <td>{item.trail_id}</td>
+            <td>{item.distance}</td>
             <td>{item.name}</td>
             <td>{item.area_name}</td>
             <td>{item.city_name}</td>
