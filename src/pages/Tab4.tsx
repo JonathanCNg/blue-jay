@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption } from '@ionic/react';
 import React from 'react';
 import { IonInput, IonItem, IonLabel } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
@@ -37,6 +37,17 @@ const Tab4: React.FC = () => {
             <IonLabel position="floating">What is your weight?</IonLabel>
             <IonInput type ="number" placeholder="000"></IonInput>
           </IonItem>
+
+          <IonItem>
+            <IonLabel>Select Fitness Level</IonLabel>
+            <IonSelect placeholder="Make a Selection">
+              <IonSelectOption value="beg">Beginner</IonSelectOption>
+              <IonSelectOption value="int">Intermediate</IonSelectOption>
+              <IonSelectOption value="ad">Advanced</IonSelectOption>
+              <IonSelectOption value="ex">Expert</IonSelectOption>
+            </IonSelect>
+          </IonItem>
+
       </IonContent>
     </IonPage>
   );
