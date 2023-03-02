@@ -50,15 +50,15 @@ const Tab4: React.FC = () => {
           </IonItem>
 
           <IonItem>
-            <IonLabel>Favorite Trail Views</IonLabel>
+            <IonLabel>Favorite Trail Features</IonLabel>
             <IonSelect placeholder="Make a Selection" multiple={true}>
               <IonSelectOption value="beach">Beach</IonSelectOption>
               <IonSelectOption value="lake">Lake</IonSelectOption>
-              <IonSelectOption value="water">Waterfall</IonSelectOption>
-              <IonSelectOption value="city">City</IonSelectOption>
-              <IonSelectOption value="wild">Wildlife</IonSelectOption>
+              <IonSelectOption value="waterfall">Waterfall</IonSelectOption>
+              <IonSelectOption value="city-walk">City</IonSelectOption>
+              <IonSelectOption value="wildlife">Wildlife</IonSelectOption>
               <IonSelectOption value="forest">Forest</IonSelectOption>
-              <IonSelectOption value="historic">Historic Sites</IonSelectOption>
+              <IonSelectOption value="historic-site">Historic Sites</IonSelectOption>
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
@@ -67,20 +67,20 @@ const Tab4: React.FC = () => {
           <IonItem>
             <IonLabel>Favorite Trail Activites</IonLabel>
             <IonSelect placeholder="Make a Selection" multiple={true}>
-              <IonSelectOption value="Walking">Walking</IonSelectOption>
-              <IonSelectOption value="Biking">Biking</IonSelectOption>
-              <IonSelectOption value="Kayaking">Kayaking</IonSelectOption>
-              <IonSelectOption value="Rock Climbing">Rock Climbing</IonSelectOption>
-              <IonSelectOption value="Canoeing">Canoeing</IonSelectOption>
-              <IonSelectOption value="Horseback riding">Horseback riding</IonSelectOption>
-              <IonSelectOption value="Hiking">Hiking</IonSelectOption>
-              <IonSelectOption value="Backpaking">Backpaking</IonSelectOption>
-              <IonSelectOption value="Fishing">Fishing</IonSelectOption>
-              <IonSelectOption value="Paddle Boarding">Paddle Boarding</IonSelectOption>
-              <IonSelectOption value="Bird Watching">Bird Watching</IonSelectOption>
-              <IonSelectOption value="Mountain Biking">Mountain Biking</IonSelectOption>
-              <IonSelectOption value="Surfing">Surfing</IonSelectOption>
-              <IonSelectOption value="Camping">Camping</IonSelectOption>
+              <IonSelectOption value="walking">Walking</IonSelectOption>
+              <IonSelectOption value="road-biking">Road biking</IonSelectOption>
+              <IonSelectOption value="whitewater-kayaking">Kayaking</IonSelectOption>
+              <IonSelectOption value="rock-climbing">Rock Climbing</IonSelectOption>
+              <IonSelectOption value="canoeing">Canoeing</IonSelectOption>
+              <IonSelectOption value="horseback-riding">Horseback riding</IonSelectOption>
+              <IonSelectOption value="hiking">Hiking</IonSelectOption>
+              <IonSelectOption value="backpaking">Backpaking</IonSelectOption>
+              <IonSelectOption value="fishing">Fishing</IonSelectOption>
+              <IonSelectOption value="paddle-sports">Paddle Boarding</IonSelectOption>
+              <IonSelectOption value="birding">Bird Watching</IonSelectOption>
+              <IonSelectOption value="mountain-biking">Mountain Biking</IonSelectOption>
+              <IonSelectOption value="surfing">Surfing</IonSelectOption>
+              <IonSelectOption value="camping">Camping</IonSelectOption>
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
@@ -89,8 +89,8 @@ const Tab4: React.FC = () => {
             <IonLabel>Favorite Route Types</IonLabel>
             <IonSelect placeholder="Make a Selection" multiple={true}>
               <IonSelectOption value="loop">Loop</IonSelectOption>
-              <IonSelectOption value="out/back">Out and Back</IonSelectOption>
-              <IonSelectOption value="point">Point to Point</IonSelectOption>
+              <IonSelectOption value="out and back">Out and Back</IonSelectOption>
+              <IonSelectOption value="point to point">Point to Point</IonSelectOption>
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
