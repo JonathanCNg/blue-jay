@@ -78,27 +78,27 @@ function Tab5() {
         </IonHeader>
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your name?</IonLabel>
-            <IonInput type="text" id="firstname" value={firstName} onIonChange = {(e) => handleInputChange(e)} placeholder="John"/>
+            <IonInput type="text" id="firstname" value={firstName} onIonChange = {(e) => handleInputChange (e)} placeholder="John"/>
           </IonItem>
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your age?</IonLabel>
-            <IonInput type="number" id="age" value={age} onIonChange = {(e) => handleInputChange(e)} placeholder="21"/>
+            <IonInput type="number" id="age" value={age} onIonChange = {(e) => handleInputChange (e)} placeholder="21"/>
           </IonItem>    
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your height?</IonLabel>
-            <IonInput type="number" id="height" value={height} onIonChange = {(e) => handleInputChange(e)} placeholder="59"></IonInput>
+            <IonInput type="number" id="height" value={height} onIonChange = {(e) => handleInputChange (e)} placeholder="59"></IonInput>
           </IonItem>
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your weight?</IonLabel>
-            <IonInput type="number" id="weight" value={weight} onIonChange = {(e) => handleInputChange(e)} placeholder="150"></IonInput>
+            <IonInput type="number" id="weight" value={weight} onIonChange = {(e) => handleInputChange (e)} placeholder="150"></IonInput>
           </IonItem>
 
           <IonItem>
             <IonLabel>Fitness Level</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFitness(JSON.stringify(ev.detail.value))}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFitness (ev.detail.value)}>
               <IonSelectOption value="beg">Beginner</IonSelectOption>
               <IonSelectOption value="int">Intermediate</IonSelectOption>
               <IonSelectOption value="ad">Advanced</IonSelectOption>
@@ -109,7 +109,7 @@ function Tab5() {
 
           <IonItem>
             <IonLabel>Favorite Trail Features</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFeatures(JSON.stringify(ev.detail.value))}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFeatures (ev.detail.value)}>
               <IonSelectOption value="beach">Beach</IonSelectOption>
               <IonSelectOption value="lake">Lake</IonSelectOption>
               <IonSelectOption value="waterfall">Waterfall</IonSelectOption>
@@ -123,7 +123,7 @@ function Tab5() {
 
           <IonItem>
             <IonLabel>Favorite Trail Activites</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setActivities(JSON.stringify(ev.detail.value))}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setActivities (ev.detail.value)}>
               <IonSelectOption value="walking">Walking</IonSelectOption>
               <IonSelectOption value="road-biking">Road biking</IonSelectOption>
               <IonSelectOption value="whitewater-kayaking">Kayaking</IonSelectOption>
@@ -144,7 +144,7 @@ function Tab5() {
 
           <IonItem>
             <IonLabel>Favorite Route Types</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setRoutes(JSON.stringify(ev.detail.value))}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setRoutes (ev.detail.value)}>
               <IonSelectOption value="loop">Loop</IonSelectOption>
               <IonSelectOption value="out and back">Out and Back</IonSelectOption>
               <IonSelectOption value="point to point">Point to Point</IonSelectOption>
