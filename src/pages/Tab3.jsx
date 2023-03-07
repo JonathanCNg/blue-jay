@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import "./Tab3.css";
 import { IonPage } from "@ionic/react";
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent } from '@ionic/react';
 
 function Tab3() {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     const position = await Geolocation.getCurrentPosition();
     var radius = "250";
-    var count = "10";
+    var count = "12";
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
     console.log (url)
     fetch (url)
@@ -29,56 +30,34 @@ function Tab3() {
   
   return (
   <IonPage>
-    <div class = "center">
-      <table class = "styled-table">
-        <thead>
-          <tr>
-            <th>Trail ID</th>
-            <th>Distance</th>
-            <th>Name</th>
-            <th>Area Name</th>
-            <th>City Name</th>
-            <th>State Name</th>
-            <th>Country Name</th>
-            {/* <th>Geoloc</th> */}
-            <th>Popularity</th>
-            <th>Elevation Gain</th>
-            <th>Difficulty Rating</th>
-            <th>Route Type</th>
-            {/* <th>Visitor Usage</th> */}
-            <th>Average Rating</th>
-            <th>Number of Reviews</th>
-            <th>Features</th>
-            <th>Activities</th>
-            <th>Units</th>
-          </tr>
-        </thead>
-        <tbody>
-        {data?.map((item, index) => (
-          <tr key={index}>
-            <td>{item.trail_id}</td>
-            <td>{item.distance}</td>
-            <td>{item.name}</td>
-            <td>{item.area_name}</td>
-            <td>{item.city_name}</td>
-            <td>{item.state_name}</td>
-            <td>{item.country_name}</td>
-            {/* <td>{item._geoloc}</td> */}
-            <td>{item.popularitylengt}h</td>
-            <td>{item.elevation_gain}</td>
-            <td>{item.difficulty_rating}</td>
-            <td>{item.route_type}</td>
-            {/* <td>{item.visitor_usage}</td> */}
-            <td>{item.avg_rating}</td>
-            <td>{item.num_reviews}</td>
-            <td>{item.features}</td>
-            <td>{item.activities}</td>
-            <td>{item.units}</td>
-          </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <IonContent fullscreen>
+      {data?.map((item, index) => (
+        <IonCard key={index}>
+          <img alt="Silhouette of mountains" src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" />
+          <IonCardHeader>
+            <IonCardTitle>{item.name}</IonCardTitle>
+            <IonCardSubtitle>{item.distance.toFixed(1) + " mi"}</IonCardSubtitle>
+            <IonCardSubtitle>{item.route_type}</IonCardSubtitle>
+            <IonCardSubtitle>{item.city_name}</IonCardSubtitle>
+          </IonCardHeader>
+
+          <IonCardContent>
+            <IonCardSubtitle>Features</IonCardSubtitle>
+            <ul>
+              {item.features.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+            <IonCardSubtitle>Activities</IonCardSubtitle>
+            <ul>
+              {item.activities.map((activity, index) => (
+                <li key={index}>{activity}</li>
+              ))}
+            </ul>
+          </IonCardContent>
+        </IonCard> 
+      ))}
+    </IonContent>
   </IonPage>
   );
 }
