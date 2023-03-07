@@ -10,7 +10,6 @@ import { getDatabase } from "firebase/database"
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
-<<<<<<< Updated upstream
   apiKey: "AIzaSyBBsag1fMZHQgkGtM1bfKPYa04DalfLTtg",
   authDomain: "bluejay-cf7c1.firebaseapp.com",
   projectId: "bluejay-cf7c1",
@@ -18,15 +17,6 @@ const firebaseConfig = {
   messagingSenderId: "21401365321",
   appId: "1:21401365321:web:ce9c60ca557d67b99ec898",
   measurementId: "G-8D13M5SW81"
-=======
-    apiKey: "AIzaSyBBsag1fMZHQgkGtM1bfKPYa04DalfLTtg",
-    authDomain: "bluejay-cf7c1.firebaseapp.com",
-    projectId: "bluejay-cf7c1",
-    storageBucket: "bluejay-cf7c1.appspot.com",
-    messagingSenderId: "21401365321",
-    appId: "1:21401365321:web:ce9c60ca557d67b99ec898",
-    measurementId: "G-8D13M5SW81"
->>>>>>> Stashed changes
 };
 
 // const firebaseConfig = {
