@@ -1,10 +1,59 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonCheckbox } from '@ionic/react';
-import React from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonCheckbox, IonButton } from '@ionic/react';
+import React, {useState} from 'react';
 import { IonInput, IonItem, IonLabel } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab5.css';
+import {database} from '../firebase'
+import {ref,push,child,update} from "firebase/database";
 
-const Tab5: React.FC = () => {
+function Tab5() {
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password,setPassword] = useState(null);
+  const [confirmPassword,setConfirmPassword] = useState(null);
+  
+  const onInputTime = (e) => {
+    console.log (e)
+  }
+
+  const handleInputChange = (e) => {
+      const {id , value} = e.target;
+      console.log (e.target)
+
+      if(id === "firstName"){
+          setFirstName(value);
+      }
+      if(id === "lastName"){
+          setLastName(value);
+      }
+      if(id === "email"){
+          setEmail(value);
+      }
+      if(id === "password"){
+          setPassword(value);
+      }
+      if(id === "confirmPassword"){
+          setConfirmPassword(value);
+      }
+
+  }
+
+  const handleSubmit  = () => {
+      console.log(firstName,lastName,email,password,confirmPassword);
+      let obj = {
+              firstName : firstName,
+              lastName:lastName,
+              email:email,
+              password:password,
+              confirmPassword:confirmPassword,
+          }       
+      // const newPostKey = push(child(ref(database), 'posts')).key;
+      const updates = {};
+      // updates['/' + newPostKey] = obj
+      updates["user :)"] = obj
+      return update(ref(database), updates);
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -20,17 +69,17 @@ const Tab5: React.FC = () => {
         </IonHeader>
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your name?</IonLabel>
-            <IonInput placeholder="Enter text"></IonInput>
+            <IonInput  type="text" name="" id="lastName" value={lastName}  className="form__input" onIonChange = {(e) => handleInputChange(e)} placeholder="LastName"/>
           </IonItem>
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your age?</IonLabel>
-            <IonInput type="number" placeholder="000"></IonInput>
+            <IonInput type="number" value={lastName} onChange = {(e) => handleInputChange(e)} id="lastName" placeholder="000"></IonInput>
           </IonItem>    
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your height?</IonLabel>
-            <IonInput type="number" placeholder="000"></IonInput>
+            <IonInput type="number" value={email} onChange = {(e) => handleInputChange(e)} id="email" placeholder="000"></IonInput>
           </IonItem>
 
           <IonItem fill = "outline">
@@ -94,7 +143,7 @@ const Tab5: React.FC = () => {
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
-
+          <IonButton onClick={()=>handleSubmit()} type="submit" class="btn">Register</IonButton>
       </IonContent>
     </IonPage>
   );
