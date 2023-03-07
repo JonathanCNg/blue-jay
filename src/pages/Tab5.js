@@ -48,14 +48,14 @@ function Tab5() {
   const handleSubmit  = () => {
       console.log(firstName, age, height, weight, fitness, features, activities, routes);
       let obj = {
-              firstName: firstName,
-              age: age,
-              height: height,
-              weight: weight,
-              fitness: fitness,
-              features: features,
-              activities: activities,
-              routes: routes
+              firstName: (firstName ? firstName : ""),
+              age: (age ? age : 0),
+              height: (height ? height : ""),
+              weight: (weight ? weight : 0),
+              fitness: (fitness ? fitness : ""),
+              features: (features ? features :""),
+              activities: (activities ? activities : ""),
+              routes: (routes ? routes : "")
           }       
       // const newPostKey = push(child(ref(database), 'posts')).key;
       const updates = {};

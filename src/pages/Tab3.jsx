@@ -4,34 +4,62 @@ import "./Tab3.css";
 import { IonPage } from "@ionic/react";
 import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent } from '@ionic/react';
 
+import { getDatabase, ref, child, get } from "firebase/database";
+
 function Tab3() {
-  const [data, setData] = useState([]);
+  const [trailData, setTrailData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const fetchData = async () => {
     const position = await Geolocation.getCurrentPosition();
     var radius = "250";
     var count = "12";
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
-    console.log (url)
     fetch (url)
       .then((response) => response.json())
-      .then((actualData) => {
-        console.log(actualData);
-        setData(actualData);
-        console.log(data);
+      .then((actualTrailData) => {
+        console.log(actualTrailData);
+        setTrailData(actualTrailData);
+        console.log(trailData);
         })
         .catch((err) => {
           console.log(err.message);
         });
   };
+
+
   
   useEffect(() => {
     fetchData();
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, "user :)")).then((snapshot) => {
+        if (snapshot.exists()) {
+        //   console.log(snapshot.val());
+        setUserData(snapshot.val());
+        console.log ("user Data:", userData)
+        } else {
+        console.log("No data available");
+        }
+        if (userData["fitness"] == "") {
+          userData["fitness"] = []
+        }
+        if (userData["features"] == "") {
+          userData["features"] = []
+        }
+        if (userData["activities"] == "") {
+          userData["activities"] = []
+        }
+        if (userData["routes"] == "") {
+          userData["routes"] = []
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
   }, []);
   
   return (
   <IonPage>
     <IonContent fullscreen>
-      {data?.map((item, index) => (
+      {trailData?.map((item, index) => (
         <IonCard key={index}>
           <img alt="Silhouette of mountains" src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" />
           <IonCardHeader>
@@ -44,15 +72,23 @@ function Tab3() {
           <IonCardContent>
             <IonCardSubtitle>Features</IonCardSubtitle>
             <ul>
-              {item.features.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
+              {item.features.map((feature, index) => {
+                if (userData["features"].includes(feature)) {
+                  return <li key={index}>{feature} {" 💖"}</li>
+                } else {
+                  return <li key={index}>{feature} {" 🤷"}</li>
+                }
+              })}
             </ul>
             <IonCardSubtitle>Activities</IonCardSubtitle>
             <ul>
-              {item.activities.map((activity, index) => (
-                <li key={index}>{activity}</li>
-              ))}
+              {item.activities.map((activity, index) => {
+                  if (userData["activities"].includes(activity)) {
+                    return <li key={index}>{activity} {" 💖"}</li>
+                  } else {
+                    return <li key={index}>{activity} {" 🤷"}</li>
+                  }
+              })}
             </ul>
           </IonCardContent>
         </IonCard> 
