@@ -67,3 +67,102 @@ ion-card img {
     width: 220px;
     background-color: white;
 }
+.subheader li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(166, 166, 166, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.subheader div{
+    padding-right: 10px;
+    display: inline;
+}
+/* .activities-list li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(17, 85, 153, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+} */
+.fav-feature li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(17, 85, 153, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.reg-feature li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(166, 166, 166, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.features-list div{
+    padding-right: 10px;
+    display: inline;
+    padding-bottom: 15px;
+}
+.fav-activity li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(17, 85, 153, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.reg-activity li{
+    font-weight: bold;
+    display:inline;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(166, 166, 166, 0.5) 100%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.activities-list div{
+    padding-right: 10px;
+    display: inline;
+    padding-bottom: 60px;
+    margin-bottom: 60px;
+}
