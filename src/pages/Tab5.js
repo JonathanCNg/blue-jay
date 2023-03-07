@@ -8,45 +8,54 @@ import {ref,push,child,update} from "firebase/database";
 
 function Tab5() {
   const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password,setPassword] = useState(null);
-  const [confirmPassword,setConfirmPassword] = useState(null);
-  
-  const onInputTime = (e) => {
-    console.log (e)
-  }
+  const [age, setAge] = useState(null);
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [fitness, setFitness] = useState(null);
+  const [features, setFeatures] = useState(null);
+  const [activities, setActivities] = useState(null);
+  const [routes, setRoutes] = useState(null);
 
   const handleInputChange = (e) => {
       const {id , value} = e.target;
-      console.log (e.target)
 
-      if(id === "firstName"){
+      if(id === "firstname"){
           setFirstName(value);
       }
-      if(id === "lastName"){
-          setLastName(value);
+      if(id === "age"){
+          setAge(value);
+      }      
+      if(id === "height"){
+          setHeight(value);
       }
-      if(id === "email"){
-          setEmail(value);
+      if(id === "weight"){
+          setWeight(value);
       }
-      if(id === "password"){
-          setPassword(value);
+      if(id === "fitness"){
+          setFitness(e.detail.value);
       }
-      if(id === "confirmPassword"){
-          setConfirmPassword(value);
+      if(id === "features"){
+          setFeatures(e.detail.value);
       }
-
+      if(id === "activities"){
+          setActivities(e.detail.value);
+      }
+      if(id === "routes"){
+          setRoutes(e.detail.value);
+      }
   }
 
   const handleSubmit  = () => {
-      console.log(firstName,lastName,email,password,confirmPassword);
+      console.log(firstName, age, height, weight, fitness, features, activities, routes);
       let obj = {
-              firstName : firstName,
-              lastName:lastName,
-              email:email,
-              password:password,
-              confirmPassword:confirmPassword,
+              firstName: firstName,
+              age: age,
+              height: height,
+              weight: weight,
+              fitness: fitness,
+              features: features,
+              activities: activities,
+              routes: routes
           }       
       // const newPostKey = push(child(ref(database), 'posts')).key;
       const updates = {};
@@ -69,27 +78,27 @@ function Tab5() {
         </IonHeader>
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your name?</IonLabel>
-            <IonInput  type="text" name="" id="lastName" value={lastName}  className="form__input" onIonChange = {(e) => handleInputChange(e)} placeholder="LastName"/>
+            <IonInput type="text" id="firstname" value={firstName} onIonChange = {(e) => handleInputChange(e)} placeholder="John"/>
           </IonItem>
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your age?</IonLabel>
-            <IonInput type="number" value={lastName} onChange = {(e) => handleInputChange(e)} id="lastName" placeholder="000"></IonInput>
+            <IonInput type="number" id="age" value={age} onIonChange = {(e) => handleInputChange(e)} placeholder="21"/>
           </IonItem>    
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your height?</IonLabel>
-            <IonInput type="number" value={email} onChange = {(e) => handleInputChange(e)} id="email" placeholder="000"></IonInput>
+            <IonInput type="number" id="height" value={height} onIonChange = {(e) => handleInputChange(e)} placeholder="59"></IonInput>
           </IonItem>
 
           <IonItem fill = "outline">
             <IonLabel position="floating">What is your weight?</IonLabel>
-            <IonInput type ="number" placeholder="000"></IonInput>
+            <IonInput type="number" id="weight" value={weight} onIonChange = {(e) => handleInputChange(e)} placeholder="150"></IonInput>
           </IonItem>
 
           <IonItem>
             <IonLabel>Fitness Level</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFitness(JSON.stringify(ev.detail.value))}>
               <IonSelectOption value="beg">Beginner</IonSelectOption>
               <IonSelectOption value="int">Intermediate</IonSelectOption>
               <IonSelectOption value="ad">Advanced</IonSelectOption>
@@ -100,7 +109,7 @@ function Tab5() {
 
           <IonItem>
             <IonLabel>Favorite Trail Features</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFeatures(JSON.stringify(ev.detail.value))}>
               <IonSelectOption value="beach">Beach</IonSelectOption>
               <IonSelectOption value="lake">Lake</IonSelectOption>
               <IonSelectOption value="waterfall">Waterfall</IonSelectOption>
@@ -112,10 +121,9 @@ function Tab5() {
             </IonSelect>
           </IonItem>
 
-
           <IonItem>
             <IonLabel>Favorite Trail Activites</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setActivities(JSON.stringify(ev.detail.value))}>
               <IonSelectOption value="walking">Walking</IonSelectOption>
               <IonSelectOption value="road-biking">Road biking</IonSelectOption>
               <IonSelectOption value="whitewater-kayaking">Kayaking</IonSelectOption>
@@ -136,7 +144,7 @@ function Tab5() {
 
           <IonItem>
             <IonLabel>Favorite Route Types</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true}>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setRoutes(JSON.stringify(ev.detail.value))}>
               <IonSelectOption value="loop">Loop</IonSelectOption>
               <IonSelectOption value="out and back">Out and Back</IonSelectOption>
               <IonSelectOption value="point to point">Point to Point</IonSelectOption>
