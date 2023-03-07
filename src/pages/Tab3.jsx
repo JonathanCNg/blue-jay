@@ -64,29 +64,38 @@ function Tab3() {
           <img alt="Silhouette of mountains" src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" />
           <IonCardHeader>
             <IonCardTitle>{item.name}</IonCardTitle>
-            <IonCardSubtitle>{item.distance.toFixed(1) + " mi"}</IonCardSubtitle>
-            <IonCardSubtitle>{item.route_type}</IonCardSubtitle>
-            <IonCardSubtitle>{item.city_name}</IonCardSubtitle>
+            
           </IonCardHeader>
+          <ul class="subheader">
+            <div>
+              <li>{item.distance.toFixed(1) + " mi"}</li>
+            </div>
+            <div>
+              <li>{item.route_type}</li>
+            </div>
+            <div>
+              <li>{item.city_name}</li>
+            </div>
+          </ul>
 
           <IonCardContent>
             <IonCardSubtitle>Features</IonCardSubtitle>
-            <ul>
+            <ul class="features-list">
               {item.features.map((feature, index) => {
                 if (userData["features"].includes(feature)) {
-                  return <li key={index}>{feature} {" 💖"}</li>
+                  return <div class="fav-feature"><li key={index}>{feature} {" 💖"}</li></div>
                 } else {
-                  return <li key={index}>{feature} {" 🤷"}</li>
+                  return <div class="reg-feature"><li key={index}>{feature} {" 🤷"}</li></div>
                 }
               })}
             </ul>
             <IonCardSubtitle>Activities</IonCardSubtitle>
-            <ul>
+            <ul class="activities-list">
               {item.activities.map((activity, index) => {
                   if (userData["activities"].includes(activity)) {
-                    return <li key={index}>{activity} {" 💖"}</li>
+                    return <div class="fav-activity"><li  key={index}>{activity} {" 💖"}</li></div>
                   } else {
-                    return <li key={index}>{activity} {" 🤷"}</li>
+                    return <div class="reg-activity"><li  key={index}>{activity} {" 🤷"}</li></div>
                   }
               })}
             </ul>
