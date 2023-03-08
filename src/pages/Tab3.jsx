@@ -61,7 +61,12 @@ function Tab3() {
     <IonContent fullscreen>
       {trailData?.map((item, index) => (
         <IonCard key={index}>
-          <img alt="Silhouette of mountains" src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" />
+          <img
+          src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" 
+          
+            /*Math.floor(Math.random() * 10)*/
+          
+          />
           <IonCardHeader>
             <IonCardTitle>{item.name}</IonCardTitle>
             <IonCardSubtitle>{item.city_name + ", " + item.state_name + ", " + item.country_name}</IonCardSubtitle>
@@ -76,7 +81,6 @@ function Tab3() {
             <div>
               <li>{
                   item.avg_rating
-                  
                 }</li>
             </div>
           </ul>
