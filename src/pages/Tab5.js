@@ -12,6 +12,7 @@ function Tab5() {
   const [height, setHeight] = useState(null);
   const [weight, setWeight] = useState(null);
   const [fitness, setFitness] = useState(null);
+  const [days, setDays] = useState(null);
   const [features, setFeatures] = useState(null);
   const [activities, setActivities] = useState(null);
   const [routes, setRoutes] = useState(null);
@@ -34,6 +35,9 @@ function Tab5() {
       if(id === "fitness"){
           setFitness(e.detail.value);
       }
+      if(id === "days"){
+          setDays(e.detail.value);
+      }
       if(id === "features"){
           setFeatures(e.detail.value);
       }
@@ -46,13 +50,14 @@ function Tab5() {
   }
 
   const handleSubmit  = () => {
-      console.log(firstName, age, height, weight, fitness, features, activities, routes);
+      console.log(firstName, age, height, weight, fitness, days, features, activities, routes);
       let obj = {
               firstName: (firstName ? firstName : ""),
               age: (age ? age : 0),
               height: (height ? height : ""),
               weight: (weight ? weight : 0),
               fitness: (fitness ? fitness : ""),
+              days: (days ? days : ""),
               features: (features ? features :""),
               activities: (activities ? activities : ""),
               routes: (routes ? routes : "")
@@ -108,6 +113,20 @@ function Tab5() {
           </IonItem>
 
           <IonItem>
+            <IonLabel>Favorite Days to Hike</IonLabel>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setDays (ev.detail.value)}>
+              <IonSelectOption value="monday">Monday</IonSelectOption>
+              <IonSelectOption value="tuesday">Tuesday</IonSelectOption>
+              <IonSelectOption value="wednesday">Wednesday</IonSelectOption>
+              <IonSelectOption value="thursday">Thursday</IonSelectOption>
+              <IonSelectOption value="friday">Friday</IonSelectOption>
+              <IonSelectOption value="saturday">Saturday</IonSelectOption>
+              <IonSelectOption value="sunday">Sunday</IonSelectOption>
+              <IonCheckbox slot="end"></IonCheckbox>
+            </IonSelect>
+          </IonItem>
+
+          <IonItem>
             <IonLabel>Favorite Trail Features</IonLabel>
             <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFeatures (ev.detail.value)}>
               <IonSelectOption value="beach">Beach</IonSelectOption>
@@ -151,7 +170,9 @@ function Tab5() {
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
+
           <IonButton onClick={()=>handleSubmit()} type="submit" class="btn">Register</IonButton>
+     
       </IonContent>
     </IonPage>
   );
