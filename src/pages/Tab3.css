@@ -101,11 +101,12 @@ ion-card img {
 } */
 .fav-feature li{
     font-weight: bold;
-    display:inline;
+    color: rgb(42, 42, 42);
+    display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgba(17, 85, 153, 0.5) 100%,
-        rgba(255, 255, 255, 0.5) 100%
+        rgb(113, 214, 113),
+        rgb(113, 214, 113)
     );
     border-radius: 15px;
     padding-left: 10px;
@@ -115,10 +116,10 @@ ion-card img {
 }
 .reg-feature li{
     font-weight: bold;
-    display:inline;
+    display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgba(166, 166, 166, 0.5) 100%,
+        rgba(215, 214, 214, 0.5) 100%,
         rgba(255, 255, 255, 0.5) 100%
     );
     border-radius: 15px;
@@ -134,11 +135,12 @@ ion-card img {
 }
 .fav-activity li{
     font-weight: bold;
-    display:inline;
+    color: rgb(42, 42, 42);
+    display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgba(17, 85, 153, 0.5) 100%,
-        rgba(255, 255, 255, 0.5) 100%
+        rgb(113, 214, 113),
+        rgb(113, 214, 113)
     );
     border-radius: 15px;
     padding-left: 10px;
@@ -148,10 +150,10 @@ ion-card img {
 }
 .reg-activity li{
     font-weight: bold;
-    display:inline;
+    display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgba(166, 166, 166, 0.5) 100%,
+        rgba(215, 214, 214, 0.5) 100%,
         rgba(255, 255, 255, 0.5) 100%
     );
     border-radius: 15px;
@@ -165,4 +167,33 @@ ion-card img {
     display: inline;
     padding-bottom: 60px;
     margin-bottom: 60px;
+}
+
+ul {
+    padding-left: 0;
+    list-style: none;
+    padding-right: 0;
+    white-space: nowrap;
+}
+.h-scrollable{
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+#firstLineDetails div li {
+    display: inline;
+    padding-right: 5px;
+    float: left;
+}
+.coolHeader ul div li{
+    display: inline;
+    padding-right: 5px;
+    margin: 1px;
+}
+.favorite li{
+    color: #0a0;
+}
+.non-favorite li{
+    color: rgb(93, 93, 93);
 }
