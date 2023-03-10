@@ -10,6 +10,26 @@ import { starSharp } from 'ionicons/icons';
 function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
+  const imageUrls = [
+    "https://cdn.onlyinyourstate.com/wp-content/uploads/2017/08/30905077521_fe3abda2f3_k.jpg", 
+    "https://cdn.wallpapersafari.com/60/30/TdLse3.jpg",
+    "https://rangermac.org/wp-content/uploads/2017/12/Hiking-Trails-Near-Me.jpg",
+    "https://i.pinimg.com/originals/f2/aa/7b/f2aa7bcd9a4882e37c867c69e49c9e85.jpg",
+    "https://img.grouponcdn.com/deal/oqkofUqPZYMhSUq9K3PV/1z-960x576/v1/c870x524.jpg",
+    "https://media.blogto.com/articles/2020818-glen.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70",
+    "https://www.travelandleisure.com/thmb/CVMvTJr9vBB4Ts6Ov1DZqZeaZUU=/1200x0/filters:no_upscale():max_bytes(150000):strip_icc()/hiking-denver-colorado-lead-DCOHIKES0720-c18048920bb14781bef0b63e8d0ae33e.jpg",
+    "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/05/shutterstock_693876502.jpg",
+    "https://cdn.onlyinyourstate.com/wp-content/uploads/2018/04/extra_large_6324321151efd3870fe6f0105028a9c9.jpg",
+    "https://i0.wp.com/www.trailsunblazed.com/wp-content/uploads/2019/05/Iceberg-Lake.jpg?w=2048",
+    "https://i.redd.it/fqmdu7cp9vc11.jpg",
+    "https://d36tnp772eyphs.cloudfront.net/blogs/1/2019/04/Trail-and-flowers-on-Mount-Sentinel-Missoula-Montana.jpg",
+    "https://blog.bozemancvb.com/hubfs/Campaigns/Yellowstone/mount-washburn.jpg",
+    "https://www.uncovercolorado.com/wp-content/uploads/2017/10/Eldorado-Canyon-Hiking-Trail-Boulder-1280x720.jpg",
+    "https://d2uqfpnktc64mn.cloudfront.net/uploads/ckeditor_assets/pictures/24334/content_lgp.jpg",
+    "http://takemytrip.com/wp-content/uploads/2015/11/1050_grinnell.jpg",
+    "https://i.pinimg.com/originals/9f/bc/21/9fbc214d403d1cd7115a6e2d95b202b4.jpg",
+    "https://www.wainnsiders.com/wp-content/uploads/reflection-lakes-trail-mount-rainier.jpg"
+  ]
   const featureName = {
     "" : "",
     "beach" : "Beach",
@@ -76,6 +96,12 @@ function Tab3() {
     "5" : "Extreme",
   }
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+  }
+
   const fetchTrailData = async () => {
     const position = await Geolocation.getCurrentPosition();
     var radius = "250";
@@ -98,6 +124,7 @@ function Tab3() {
         }
         setTrailData(actualTrailData);
         console.log("trailData", trailData);
+        console.log(imageUrls[getRandomInt(0, imageUrls.length)])
         })
         .catch((err) => {
           console.log(err.message);
@@ -111,9 +138,9 @@ function Tab3() {
     const dbRef = ref(getDatabase());
     get(child(dbRef, "user :)")).then((snapshot) => {
         if (snapshot.exists()) {
-        //   console.log(snapshot.val());
+          console.log(snapshot.val());
         setUserData(snapshot.val());
-        console.log ("user Data:", userData)
+        console.log("user Data:", userData)
         } else {
         console.log("No data available");
         }
@@ -140,7 +167,7 @@ function Tab3() {
       {trailData?.map((item, index) => (
         <IonCard key={index}>
           <img
-          src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" 
+          src={imageUrls[getRandomInt(0, imageUrls.length)]}
           />
           <IonCardHeader class="coolHeader">
             <IonCardSubtitle>
