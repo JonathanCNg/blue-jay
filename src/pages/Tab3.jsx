@@ -192,15 +192,15 @@ function Tab3() {
               </ul>
             </IonCardSubtitle>
             <IonCardTitle>{item.name}</IonCardTitle>
-            <IonCardSubtitle>
-              {item.distance.toFixed(1) + " miles away in " + item.city_name}
-            </IonCardSubtitle>
+              <IonCardSubtitle>
+                {item.distance.toFixed(1) + " miles away in " + item.city_name}
+              </IonCardSubtitle>
           </IonCardHeader>
-          {() => {if (userData["fitness"].includes(item.difficulty_rating.toString())) {
+          {/*() => {if (userData["fitness"].includes(item.difficulty_rating.toString())) {
               return (<div class="favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
             } else {
               return (<div class="non-favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
-            }}}
+            }}*/}
           <IonCardContent>
             <IonCardSubtitle>Features</IonCardSubtitle>
             <div class="h-scrollable">
