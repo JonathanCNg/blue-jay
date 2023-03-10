@@ -11,8 +11,13 @@ function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
   const imageUrls = [
-    "https://cdn.onlyinyourstate.com/wp-content/uploads/2017/08/30905077521_fe3abda2f3_k.jpg", 
+    "https://cdn.onlyinyourstate.com/wp-content/uploads/2017/08/30905077521_fe3abda2f3_ck.jpg", 
     "https://cdn.wallpapersafari.com/60/30/TdLse3.jpg",
+    "https://www.nps.gov/npgallery/GetAsset/C8B6E3FB-7D27-4348-A47B-CD0A54E7ACD9/proxy/hires",
+    "http://ic.pics.livejournal.com/canyonwalker/33413618/128064/128064_original.jpg",
+    "https://www.myopencountry.com/wp-content/uploads/2021/02/Best-hikes-in-joshua-tree-featim.jpg",
+    "https://www.mercurynews.com/wp-content/uploads/2021/07/SJM-L-TRAVTOPTEN-080-1-01.jpg?w=525",
+    "https://i2.wp.com/photos.smugmug.com/photos/i-6zcZxgr/0/fe236b08/L/i-6zcZxgr-L.jpg",
     "https://rangermac.org/wp-content/uploads/2017/12/Hiking-Trails-Near-Me.jpg",
     "https://i.pinimg.com/originals/f2/aa/7b/f2aa7bcd9a4882e37c867c69e49c9e85.jpg",
     "https://img.grouponcdn.com/deal/oqkofUqPZYMhSUq9K3PV/1z-960x576/v1/c870x524.jpg",
