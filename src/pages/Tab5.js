@@ -104,10 +104,11 @@ function Tab5() {
           <IonItem>
             <IonLabel>Fitness Level</IonLabel>
             <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setFitness (ev.detail.value)}>
-              <IonSelectOption value="beg">Beginner</IonSelectOption>
-              <IonSelectOption value="int">Intermediate</IonSelectOption>
-              <IonSelectOption value="ad">Advanced</IonSelectOption>
-              <IonSelectOption value="ex">Expert</IonSelectOption>
+              <IonSelectOption value="1">Beginner</IonSelectOption>
+              <IonSelectOption value="2">Intermediate</IonSelectOption>
+              <IonSelectOption value="3">Advanced</IonSelectOption>
+              <IonSelectOption value="4">Expert</IonSelectOption>
+              <IonSelectOption value="5">Extreme</IonSelectOption>
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
