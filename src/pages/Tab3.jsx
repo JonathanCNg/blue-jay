@@ -2,14 +2,81 @@ import { useEffect, useState } from "react";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import "./Tab3.css";
 import { IonPage } from "@ionic/react";
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent, IonIcon } from '@ionic/react';
 
 import { getDatabase, ref, child, get } from "firebase/database";
+import { starSharp } from 'ionicons/icons';
 
 function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
-  const fetchData = async () => {
+  const featureName = {
+    "" : "",
+    "beach" : "Beach",
+    "rails-trails" : "Rails Trails",
+    "paved" : "Paved",
+    "lake" : "Lake",
+    "strollers" : "Strollers",
+    "partially-paved" : "Partially Paved",
+    "river" : "River",
+    "wildlife" : "Wildlife",
+    "wild-flowers" : "Wild Flowers",
+    "cave" : "Cave",
+    "ada" : "ADA",
+    "dogs" : "Dogs Allowed",
+    "views" : "Views",
+    "city-walk" : "City Walk",
+    "kids" : "Kids",
+    "dogs-no" : "Dog-Free",
+    "hot-springs" : "Hot Springs",
+    "forest" : "Forest",
+    "waterfall" : "Waterfall",
+    "historic-site" : "Historic Site",
+    "dogs-leash" : "Dogs on Leash"
+  }
+  const activityName = {
+    "road-biking" : "Road Biking",
+    "fly-fishing" : "Fly Fishing",
+    "rails-trails" : "Rails Trails",
+    "walking" : "Walking",
+    "whitewater-kayaking" : "Whitewater Kayaking",
+    "rock-climbing" : "Rock Climbing",
+    "canoeing" : "Canoeing",
+    "off-road-driving" : "Off Road Driving",
+    "horseback-riding" : "Horseback Riding",
+    "bike-touring" : "Bike Touring",
+    "hiking" : "Hiking",
+    "backpacking" : "Backpacking",
+    "sea-kayaking" : "Sea Kayaking",
+    "skiing" : "Skiing",
+    "snowboarding" : "Snowboarding",
+    "cross-country-skiing" : "Cross Country Skiing",
+    "snowshoeing" : "Snowshoeing",
+    "nature-trips" : "Nature Trips",
+    "fishing" : "Fishing",
+    "paddle-sports" : "Paddle Sports",
+    "ice-climbing" : "Ice Climbing",
+    "birding" : "Birding",
+    "mountain-biking" : "Mountain Biking",
+    "surfing" : "Surfing",
+    "camping" : "Camping",
+    "trail-running" : "Trail Running",
+    "scenic-driving" : "Scenic Driving"
+  }
+  const routeName = {
+    "loop" : "Loop",
+    "out and back" : "Out and Back",
+    "point to point" : "Point to Point"
+  }
+  const fitnessName = {
+    "1" : "Beginner",
+    "2" : "Intermediate",
+    "3" : "Advanced",
+    "4" : "Expert",
+    "5" : "Extreme",
+  }
+
+  const fetchTrailData = async () => {
     const position = await Geolocation.getCurrentPosition();
     var radius = "250";
     var count = "12";
@@ -18,8 +85,19 @@ function Tab3() {
       .then((response) => response.json())
       .then((actualTrailData) => {
         console.log(actualTrailData);
+        for (var i = 0; i < actualTrailData.length; i++) {
+          var trail = actualTrailData[i];
+          var trailFeatures = trail["features"];
+          var trailActivities = trail["activities"];
+          let featureIntersection = trailFeatures.filter(x => userData["features"].includes(x));
+          let featureDifferences = trailFeatures.filter(x => !userData["features"].includes(x));
+          let activityIntersection = trailActivities.filter(x => userData["activities"].includes(x));
+          let activityDifferences = trailActivities.filter(x => !userData["activities"].includes(x));
+          actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
+          actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
+        }
         setTrailData(actualTrailData);
-        console.log(trailData);
+        console.log("trailData", trailData);
         })
         .catch((err) => {
           console.log(err.message);
@@ -29,7 +107,7 @@ function Tab3() {
 
   
   useEffect(() => {
-    fetchData();
+    fetchTrailData();
     const dbRef = ref(getDatabase());
     get(child(dbRef, "user :)")).then((snapshot) => {
         if (snapshot.exists()) {
@@ -63,49 +141,64 @@ function Tab3() {
         <IonCard key={index}>
           <img
           src="https://ewscripps.brightspotcdn.com/dims4/default/c76d7fd/2147483647/strip/true/crop/2048x1152+0+192/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F70%2Feb%2F1749bc944b21aa12d751d1ef54a5%2Fscuppernong-nature-trail.jfif" 
-          
-            /*Math.floor(Math.random() * 10)*/
-          
           />
-          <IonCardHeader>
+          <IonCardHeader class="coolHeader">
+            <IonCardSubtitle>
+              <ul id="firstLineDetails">
+                {userData["fitness"].includes(item.difficulty_rating.toString()) 
+                ? <div class="favorite">
+                  <li>{fitnessName[item.difficulty_rating]}</li>
+                </div> 
+                : <div class="non-favorite">
+                  <li>{fitnessName[item.difficulty_rating]}</li>
+                </div>}
+                <div><li>{" • "}</li></div>
+                {userData["routes"].includes(item.route_type)
+                ? <div class="favorite">
+                  <li>{routeName[item.route_type]}</li>
+                </div>
+                : <div class="non-favorite">
+                  <li>{routeName[item.route_type]}</li>
+                </div>}
+                <div><li>{" • "}</li></div>
+                <li><IonIcon icon={starSharp} color="grey"/>{" " + item.avg_rating.toFixed(1) + " (" + item.num_reviews + ")"}</li>
+              </ul>
+            </IonCardSubtitle>
             <IonCardTitle>{item.name}</IonCardTitle>
-            <IonCardSubtitle>{item.city_name + ", " + item.state_name + ", " + item.country_name}</IonCardSubtitle>
+            <IonCardSubtitle>
+              {item.distance.toFixed(1) + " miles away in " + item.city_name}
+            </IonCardSubtitle>
           </IonCardHeader>
-          <ul class="subheader">
-            <div>
-              <li>{item.distance.toFixed(1) + " mi"}</li>
-            </div>
-            <div>
-              <li>{item.route_type}</li>
-            </div>
-            <div>
-              <li>{
-                  item.avg_rating
-                }</li>
-            </div>
-          </ul>
-
+          {() => {if (userData["fitness"].includes(item.difficulty_rating.toString())) {
+              return (<div class="favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
+            } else {
+              return (<div class="non-favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
+            }}}
           <IonCardContent>
             <IonCardSubtitle>Features</IonCardSubtitle>
-            <ul class="features-list">
-              {item.features.map((feature, index) => {
-                if (userData["features"].includes(feature)) {
-                  return <div class="fav-feature"><li key={index}>{feature} {" 💖"}</li></div>
-                } else {
-                  return <div class="reg-feature"><li key={index}>{feature} {" 🤷"}</li></div>
-                }
-              })}
-            </ul>
-            <IonCardSubtitle>Activities</IonCardSubtitle>
-            <ul class="activities-list">
-              {item.activities.map((activity, index) => {
-                  if (userData["activities"].includes(activity)) {
-                    return <div class="fav-activity"><li  key={index}>{activity} {" 💖"}</li></div>
+            <div class="h-scrollable">
+              <ul class="features-list">
+                {item.features.map((feature, index) => {
+                  if (userData["features"].includes(feature)) {
+                    return <div class="fav-feature"><li key={index}>{featureName[feature]}</li></div>
                   } else {
-                    return <div class="reg-activity"><li  key={index}>{activity} {" 🤷"}</li></div>
+                    return <div class="reg-feature"><li key={index}>{featureName[feature]}</li></div>
                   }
-              })}
-            </ul>
+                })}
+              </ul>
+            </div>
+            <IonCardSubtitle>Activities</IonCardSubtitle>
+            <div class="h-scrollable">
+              <ul class="activities-list">
+                {item.activities.map((activity, index) => {
+                    if (userData["activities"].includes(activity)) {
+                      return <div class="fav-activity"><li  key={index}>{activityName[activity]}</li></div>
+                    } else {
+                      return <div class="reg-activity"><li  key={index}>{activityName[activity]}</li></div>
+                    }
+                })}
+              </ul>
+            </div>
           </IonCardContent>
         </IonCard> 
       ))}
