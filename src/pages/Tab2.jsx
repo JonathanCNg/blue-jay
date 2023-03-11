@@ -36,7 +36,7 @@ const Tab2 = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>My Weather</IonTitle>
+          <IonTitle>My City</IonTitle>
 
           <IonButtons slot="end">
             <IonButton onClick={() => getCurrentPosition()}>
@@ -49,19 +49,22 @@ const Tab2 = () => {
 
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Dashboard</IonTitle>
+            <IonTitle size="large">My City</IonTitle>
           </IonToolbar>
         </IonHeader>
 
-        <IonRow className="ion-margin-start ion-margin-end ion-justify-content-center ion-text-center">
+        {/* <IonRow className="ion-margin-start ion-margin-end ion-justify-content-center ion-text-center">
           <IonCol size="12">
             <h4>Weather Summary</h4>
           </IonCol>
-        </IonRow>
+        </IonRow> */}
 
         <div style={{marginTop: "-1.5rem"}}>
           {currentWeather ? <CurrentWeather currentWeather={currentWeather} /> : <SkeletonDashboard />}
         </div>
+
+        <IonHeader>Can't make it to the trail? Walking around your neighborhood is a great way to stay fit!</IonHeader>
+        <IonContent>The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️</IonContent>
       </IonContent>
     </IonPage>
   );
