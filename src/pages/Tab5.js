@@ -13,6 +13,7 @@ function Tab5() {
   const [weight, setWeight] = useState(null);
   const [fitness, setFitness] = useState(null);
   const [days, setDays] = useState(null);
+  const [weather, setWeather] = useState(null);
   const [features, setFeatures] = useState(null);
   const [activities, setActivities] = useState(null);
   const [routes, setRoutes] = useState(null);
@@ -38,6 +39,9 @@ function Tab5() {
       if(id === "days"){
           setDays(e.detail.value);
       }
+      if(id === "weather"){
+        setWeather(e.detail.value);
+    }
       if(id === "features"){
           setFeatures(e.detail.value);
       }
@@ -50,7 +54,7 @@ function Tab5() {
   }
 
   const handleSubmit  = () => {
-      console.log(firstName, age, height, weight, fitness, days, features, activities, routes);
+      console.log(firstName, age, height, weight, fitness, days, weather, features, activities, routes);
       let obj = {
               firstName: (firstName ? firstName : ""),
               age: (age ? age : 0),
@@ -58,6 +62,7 @@ function Tab5() {
               weight: (weight ? weight : 0),
               fitness: (fitness ? fitness : ""),
               days: (days ? days : ""),
+              weather: (weather ? weather : ""),
               features: (features ? features :""),
               activities: (activities ? activities : ""),
               routes: (routes ? routes : "")
@@ -78,7 +83,7 @@ function Tab5() {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 4</IonTitle>
+            <IonTitle size="large">Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
           <IonItem fill = "outline">
@@ -123,6 +128,18 @@ function Tab5() {
               <IonSelectOption value="friday">Friday</IonSelectOption>
               <IonSelectOption value="saturday">Saturday</IonSelectOption>
               <IonSelectOption value="sunday">Sunday</IonSelectOption>
+              <IonCheckbox slot="end"></IonCheckbox>
+            </IonSelect>
+          </IonItem>
+
+          <IonItem>
+            <IonLabel>Favorite Weather Conditions</IonLabel>
+            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setDays (ev.detail.value)}>
+              <IonSelectOption value="sunny">Sunny</IonSelectOption>
+              <IonSelectOption value="cloudy">Cloudy</IonSelectOption>
+              <IonSelectOption value="windy">Windy</IonSelectOption>
+              <IonSelectOption value="rainy">Rainy</IonSelectOption>
+              <IonSelectOption value="stormy">Stormy</IonSelectOption>
               <IonCheckbox slot="end"></IonCheckbox>
             </IonSelect>
           </IonItem>
