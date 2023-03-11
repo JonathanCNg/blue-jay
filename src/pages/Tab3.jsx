@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import "./Tab3.css";
 import { IonPage } from "@ionic/react";
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent, IonIcon } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonContent, IonIcon, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
 
 import { getDatabase, ref, child, get } from "firebase/database";
 import { starSharp } from 'ionicons/icons';
@@ -106,40 +106,8 @@ function Tab3() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
   }
-
-  const fetchTrailData = async () => {
-    const position = await Geolocation.getCurrentPosition();
-    var radius = "250";
-    var count = "12";
-    var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
-    fetch (url)
-      .then((response) => response.json())
-      .then((actualTrailData) => {
-        console.log(actualTrailData);
-        for (var i = 0; i < actualTrailData.length; i++) {
-          var trail = actualTrailData[i];
-          var trailFeatures = trail["features"];
-          var trailActivities = trail["activities"];
-          let featureIntersection = trailFeatures.filter(x => userData["features"].includes(x));
-          let featureDifferences = trailFeatures.filter(x => !userData["features"].includes(x));
-          let activityIntersection = trailActivities.filter(x => userData["activities"].includes(x));
-          let activityDifferences = trailActivities.filter(x => !userData["activities"].includes(x));
-          actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
-          actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
-        }
-        setTrailData(actualTrailData);
-        console.log("trailData", trailData);
-        console.log(imageUrls[getRandomInt(0, imageUrls.length)])
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-  };
-
-
   
   useEffect(() => {
-    fetchTrailData();
     const dbRef = ref(getDatabase());
     get(child(dbRef, "user :)")).then((snapshot) => {
         if (snapshot.exists()) {
@@ -164,11 +132,50 @@ function Tab3() {
     }).catch((error) => {
         console.error(error);
     });
+    fetchTrailData();
   }, []);
-  
+
+  const fetchTrailData = async () => {
+    const position = await Geolocation.getCurrentPosition();
+    var radius = "250";
+    var count = "12";
+    var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
+    fetch (url)
+      .then((response) => response.json())
+      .then((actualTrailData) => {
+        console.log(actualTrailData);
+        for (var i = 0; i < actualTrailData.length; i++) {
+          var trail = actualTrailData[i];
+          var trailFeatures = trail["features"];
+          var trailActivities = trail["activities"];
+          let featureIntersection = trailFeatures.filter(x => userData["features"].includes(x));
+          let featureDifferences = trailFeatures.filter(x => !userData["features"].includes(x));
+          let activityIntersection = trailActivities.filter(x => userData["activities"].includes(x));
+          let activityDifferences = trailActivities.filter(x => !userData["activities"].includes(x));
+          actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
+          actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
+        }
+        setTrailData(actualTrailData);
+        console.log("trailData", trailData);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+  };
+
   return (
   <IonPage>
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle>Trails</IonTitle>
+      </IonToolbar>
+    </IonHeader>
     <IonContent fullscreen>
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large">Trails</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       {trailData?.map((item, index) => (
         <IonCard key={index}>
           <img
@@ -201,11 +208,11 @@ function Tab3() {
                 {item.distance.toFixed(1) + " miles away in " + item.city_name}
               </IonCardSubtitle>
           </IonCardHeader>
-          {/*() => {if (userData["fitness"].includes(item.difficulty_rating.toString())) {
+            {() => {if (userData["fitness"].includes(item.difficulty_rating.toString())) {
               return (<div class="favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
             } else {
               return (<div class="non-favorite"><li>{fitnessName[item.difficulty_rating]}</li></div>)
-            }}*/}
+            }}}
           <IonCardContent>
             <IonCardSubtitle>Features</IonCardSubtitle>
             <div class="h-scrollable">
@@ -231,6 +238,8 @@ function Tab3() {
                 })}
               </ul>
             </div>
+            <IonCardSubtitle>Weather</IonCardSubtitle>
+            <IonCardContent>The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️</IonCardContent>
           </IonCardContent>
         </IonCard> 
       ))}
