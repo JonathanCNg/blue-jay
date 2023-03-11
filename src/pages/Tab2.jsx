@@ -47,7 +47,7 @@ const Tab2 = () => {
       </IonHeader>
       <IonContent fullscreen>
 
-        <IonHeader collapse="condense">
+        <IonHeader collapse="condense" style={{marginBottom: '20px'}}>
           <IonToolbar>
             <IonTitle size="large">My City</IonTitle>
           </IonToolbar>

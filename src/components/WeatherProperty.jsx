@@ -1,5 +1,5 @@
 import { IonCardSubtitle, IonCol, IonIcon, IonNote, IonRow } from "@ionic/react";
-import { pulseOutline, sunnyOutline, thermometerOutline } from "ionicons/icons";
+import { pulseOutline, sunnyOutline, thermometerOutline, arrowForwardOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 
 export const WeatherProperty = ({type, currentWeather}) => {
@@ -10,10 +10,10 @@ export const WeatherProperty = ({type, currentWeather}) => {
 
     wind: {
       isIcon: false,
-      icon: "/assets/wind.png",
+      icon: arrowForwardOutline,
       alt: "wind",
       label: "Wind",
-      value: `${currentWeather.current.wind_mph}mph`
+      value: `${currentWeather.current.wind_mph} mph`
     },
     feelsLike: {
 
@@ -21,7 +21,7 @@ export const WeatherProperty = ({type, currentWeather}) => {
       icon: thermometerOutline,
       alt: "feels like",
       label: "Feels like",
-      value: `${currentWeather.current.feelslike_c}°C`
+      value: `${currentWeather.current.feelslike_f}°F`
     },
     indexUV: {
 
