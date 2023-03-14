@@ -9,7 +9,7 @@ import { getDatabase, ref, child, get } from "firebase/database";
 const dbRef = ref(getDatabase());
 get(child(dbRef, "user :)")).then((snapshot) => {
   if (snapshot.exists()) {
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
   } else {
     console.log("No data available");
   }
