@@ -26,7 +26,6 @@ const Tab2 = () => {
 
     const query = `${ coords.latitude },${ coords.longitude}`;
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f93eb660b2424258bf5155016210712&q=${ query }`);
-    
     const data = await response.json();
     console.log(data);
     setCurrentWeather(data);
