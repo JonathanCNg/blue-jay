@@ -106,8 +106,8 @@ ion-card img {
     display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgb(113, 214, 113),
-        rgb(113, 214, 113)
+        rgb(100, 255, 0),
+        rgb(100, 255, 0)
     );
     border-radius: 15px;
     padding-left: 10px;
@@ -117,6 +117,7 @@ ion-card img {
 }
 .reg-feature li{
     font-weight: bold;
+    color: rgb(42, 42, 42);
     display: inline;
     background: radial-gradient(
         ellipse at center,
@@ -140,8 +141,8 @@ ion-card img {
     display: inline;
     background: radial-gradient(
         ellipse at center,
-        rgb(113, 214, 113),
-        rgb(113, 214, 113)
+        rgb(100, 255, 0),
+        rgb(100, 255, 0)
     );
     border-radius: 15px;
     padding-left: 10px;
@@ -151,6 +152,7 @@ ion-card img {
 }
 .reg-activity li{
     font-weight: bold;
+    color: rgb(42, 42, 42);
     display: inline;
     background: radial-gradient(
         ellipse at center,
@@ -192,8 +194,17 @@ ul {
 }
 .favorite li{
     color: #0a0;
+    font-weight: 600;
 }
 .non-favorite li{
     color: rgb(93, 93, 93);
+    font-weight: 6000;
 }
 
+ion-card-title {
+    font-weight: 600;
+}
+
+ion-card-subtitle {
+    font-weight: 500;
+}

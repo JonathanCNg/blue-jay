@@ -7,11 +7,17 @@ import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, 
 import { getDatabase, ref, child, get } from "firebase/database";
 import { starSharp } from 'ionicons/icons';
 
+// import GetWeather from "../components/GetWeather";
+
 function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
+
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [futureWeather, setFutureWeather] = useState(null);
+
   const imageUrls = [
-    "https://cdn.onlyinyourstate.com/wp-content/uploads/2017/08/30905077521_fe3abda2f3_ck.jpg", 
+    // "https://cdn.onlyinyourstate.com/wp-content/uploads/2017/08/30905077521_fe3abda2f3_ck.jpg", 
     "https://cdn.wallpapersafari.com/60/30/TdLse3.jpg",
     "https://www.nps.gov/npgallery/GetAsset/C8B6E3FB-7D27-4348-A47B-CD0A54E7ACD9/proxy/hires",
     "http://ic.pics.livejournal.com/canyonwalker/33413618/128064/128064_original.jpg",
@@ -107,13 +113,11 @@ function Tab3() {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
   }
   
-  useEffect(() => {
+  const fetchUserData = () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, "user :)")).then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val());
-        setUserData(snapshot.val());
-        console.log("user Data:", userData)
+          setUserData(snapshot.val());
         } else {
         console.log("No data available");
         }
@@ -130,10 +134,43 @@ function Tab3() {
           userData["routes"] = []
         }
     }).catch((error) => {
-        console.error(error);
+        console.error(error.message);
     });
-    fetchTrailData();
-  }, []);
+  }
+
+  useEffect(() => {
+    if (userData == undefined || userData.length == 0) {
+      fetchUserData();
+    }
+    else {
+      console.log ("userData:", userData)
+      fetchTrailData();
+    }
+  }, [userData]);
+
+const getWeather = async () => {
+    const coordinates = await Geolocation.getCurrentPosition();
+    const coords = coordinates.coords;
+    const query = `${ coords.latitude },${ coords.longitude}`;
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f93eb660b2424258bf5155016210712&q=${ query }`);
+    const current_data = await response.json();
+    const days = 10;
+    const forecast_response = await fetch (`https://api.weatherapi.com/v1/forecast.json?key=f93eb660b2424258bf5155016210712&q=${ query }&days=${ days }`);
+    const future_data = await forecast_response.json();
+    setCurrentWeather (current_data);
+    setFutureWeather (future_data);
+}
+
+  useEffect(() => {
+    if (currentWeather == undefined || futureWeather == undefined)
+    {
+      getWeather();   
+    }
+    else {
+      // console.log ("currentWeather:", currentWeather);
+      // console.log ("futureWeather:", futureWeather);
+    }
+  }, [currentWeather, futureWeather]);
 
   const fetchTrailData = async () => {
     const position = await Geolocation.getCurrentPosition();
@@ -143,7 +180,6 @@ function Tab3() {
     fetch (url)
       .then((response) => response.json())
       .then((actualTrailData) => {
-        console.log(actualTrailData);
         for (var i = 0; i < actualTrailData.length; i++) {
           var trail = actualTrailData[i];
           var trailFeatures = trail["features"];
@@ -155,11 +191,11 @@ function Tab3() {
           actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
           actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
         }
+
         setTrailData(actualTrailData);
-        console.log("trailData", trailData);
         })
-        .catch((err) => {
-          console.log(err.message);
+        .catch((error) => {
+          console.log(error.message);
         });
   };
 
@@ -239,7 +275,26 @@ function Tab3() {
               </ul>
             </div>
             <IonCardSubtitle>Weather</IonCardSubtitle>
-            <IonCardContent>The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️</IonCardContent>
+            <IonCardContent>
+              The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️
+              {console.log ("Current Weather", currentWeather)}
+              {console.log ("Future Weather", futureWeather)}
+              
+              {(currentWeather && futureWeather)
+                ?
+                <div>
+                  <p>{currentWeather.current.condition.text}</p>
+                  <p>{currentWeather.current.feelslike_f}</p>
+                  {/* Only can see three days into the future */}
+                  <p>{futureWeather.forecast.forecastday[0].date} : {futureWeather.forecast.forecastday[0].day.avgtemp_f}</p>            
+                  <p>{futureWeather.forecast.forecastday[1].date} : {futureWeather.forecast.forecastday[1].day.avgtemp_f}</p>            
+                  <p>{futureWeather.forecast.forecastday[2].date} : {futureWeather.forecast.forecastday[2].day.avgtemp_f}</p>
+                </div>
+                :
+                <div> empty :( </div>
+                }
+              
+            </IonCardContent>
           </IonCardContent>
         </IonCard> 
       ))}
