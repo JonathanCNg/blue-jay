@@ -190,7 +190,7 @@ async function getWeatherCoords (coords) {
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
     fetch (url)
       .then((response) => response.json())
-      .then((actualTrailData) => {
+      .then(async (actualTrailData) => {
 
         var temp_array = [];
 
@@ -207,10 +207,23 @@ async function getWeatherCoords (coords) {
 
           var latitude = actualTrailData[i]["latitude"];
           var longitude = actualTrailData[i]["longitude"];
-          let weather = getWeatherCoords ([latitude, longitude]);
+          let weather = await getWeatherCoords ([latitude, longitude]);
           temp_array.push (weather);
         }
-
+        console.log ("temparr", temp_array[0])
+        for (var j = 0; j < temp_array.length; j++) {
+          let temps = [temp_array[j].forecast.forecastday[0].day.avgtemp_f,temp_array[j].forecast.forecastday[1].day.avgtemp_f,temp_array[j].forecast.forecastday[2].day.avgtemp_f,]
+          temp_array[j] = [Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[0].day.avgtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[1].day.avgtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[2].day.avgtemp_f)]
+          let index = temp_array[j].indexOf(Math.min(temp_array[j]))
+          if (index === 0) {
+            temp_array[j] = " today because the weather will be closest to your liking!"
+          } else if (index === 1) {
+            temp_array[j] = " tomorrow because the weather will be closest to your liking!"
+          } else {
+            temp_array[j] = " the day after tomorrow because the weather will be closest to your liking at " + Math.min(temps) + "*F :)!"
+          }
+        }
+        console.log ("temparr after", temp_array[0])
         setTrailData(actualTrailData);
         setWeatherData(temp_array);
         })
@@ -297,24 +310,12 @@ async function getWeatherCoords (coords) {
             </div>
             <IonCardSubtitle>Weather</IonCardSubtitle>
             <IonCardContent>
-              The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️
-              {console.log ("Current Weather", currentWeather)}
-              {console.log ("Future Weather", futureWeather)}
-              {console.log ("WeatherData", weatherData)}
-              
-              {(currentWeather && futureWeather)
-                ?
-                <div>
-                  <p>{currentWeather.current.condition.text}</p>
-                  <p>{currentWeather.current.feelslike_f}</p>
-                  {/* Only can see three days into the future */}
-                  <p>{futureWeather.forecast.forecastday[0].date} : {futureWeather.forecast.forecastday[0].day.avgtemp_f}</p>            
-                  <p>{futureWeather.forecast.forecastday[1].date} : {futureWeather.forecast.forecastday[1].day.avgtemp_f}</p>            
-                  <p>{futureWeather.forecast.forecastday[2].date} : {futureWeather.forecast.forecastday[2].day.avgtemp_f}</p>
-                </div>
-                :
-                <div> empty :( </div>
-                }
+              Within the next 3 days, the best day for you to hike will be 
+              {/* {console.log ("Current Weather", currentWeather)} */}
+              {/* {console.log ("Future Weather", futureWeather)} */}
+              {/* {console.log ("WeatherData", weatherData)} */}
+              { weatherData[index]}
+             
               
             </IonCardContent>
           </IonCardContent>
