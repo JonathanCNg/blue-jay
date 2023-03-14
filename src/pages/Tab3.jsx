@@ -187,7 +187,7 @@ async function getWeatherCoords (coords) {
   const fetchTrailData = async () => {
     const position = await Geolocation.getCurrentPosition();
     var radius = "250";
-    var count = "12";
+    var count = "10";
     var url = "https://delightful-mushroom-f6ea281114064ec7a6bd48c7ad707e18.azurewebsites.net/nearby-trails?lat=" + position.coords.latitude.toString() + "&long=" + position.coords.longitude.toString() + "&radius=" + radius + "&count=" + count;
     fetch (url)
       .then((response) => response.json())
@@ -195,15 +195,24 @@ async function getWeatherCoords (coords) {
 
         var temp_array = [];
         var trail_curr_weather = [];
+        var score_array = [];
 
         for (var i = 0; i < actualTrailData.length; i++) {
+          let score = 0;
           var trail = actualTrailData[i];
           var trailFeatures = trail["features"];
           var trailActivities = trail["activities"];
           let featureIntersection = trailFeatures.filter(x => userData["features"].includes(x));
+          score += featureIntersection.length;
           let featureDifferences = trailFeatures.filter(x => !userData["features"].includes(x));
           let activityIntersection = trailActivities.filter(x => userData["activities"].includes(x));
+          score += activityIntersection.length;
           let activityDifferences = trailActivities.filter(x => !userData["activities"].includes(x));
+
+          score += (userData["fitness"].includes(trail.difficulty_rating.toString())) ? 1 : 0;
+          score += (userData["routes"].includes(trail.route_type)) ? 1 : 0;
+          score_array.push(score);
+
           actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
           actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
 
@@ -212,6 +221,21 @@ async function getWeatherCoords (coords) {
           let weather = await getWeatherCoords ([latitude, longitude]);
           temp_array.push (weather);
         }
+        // console.log("scores", score_array);
+        // Sort trails by score
+        for (var i = 0; i < actualTrailData.length; i++) {
+          for (var j = 0; j < actualTrailData.length - i - 1; j++) {
+            if (score_array[j] < score_array[j+1]) {
+              var temp = score_array[j];
+              score_array[j] = score_array[j+1];
+              score_array[j+1] = temp;
+              temp = actualTrailData[j];
+              actualTrailData[j] = actualTrailData[j+1];
+              actualTrailData[j+1] = temp;
+            }
+          }
+        }
+
         console.log ("temparr", temp_array[0])
         for (var j = 0; j < temp_array.length; j++) {
           let temps = [temp_array[j].forecast.forecastday[0].day.maxtemp_f,temp_array[j].forecast.forecastday[1].day.maxtemp_f,temp_array[j].forecast.forecastday[2].day.maxtemp_f,]
@@ -228,7 +252,7 @@ async function getWeatherCoords (coords) {
           }
         }
         console.log ("temparr after", temp_array[0])
-        setTrailData(actualTrailData);
+        setTrailData(actualTrailData.slice(0,3));
         setWeatherData(temp_array);
         console.log("trail_curr_weather", trail_curr_weather)
         setTrailCurrWeather(trail_curr_weather);
