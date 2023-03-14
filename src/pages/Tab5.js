@@ -17,6 +17,7 @@ function Tab5() {
   const [features, setFeatures] = useState(null);
   const [activities, setActivities] = useState(null);
   const [routes, setRoutes] = useState(null);
+  const [temp, setTemp] = useState(null);
 
   const handleInputChange = (e) => {
       const {id , value} = e.target;
@@ -51,21 +52,25 @@ function Tab5() {
       if(id === "routes"){
           setRoutes(e.detail.value);
       }
+      if(id === "temp"){
+          setTemp(value)
+      }
   }
 
   const handleSubmit  = () => {
-      console.log(firstName, age, height, weight, fitness, days, weather, features, activities, routes);
+      console.log(firstName, age, height, weight, fitness, days, weather, features, activities, routes, temp);
       let obj = {
               firstName: (firstName ? firstName : ""),
-              age: (age ? age : 0),
+              age: (age ? parseInt(age) : 0),
               height: (height ? height : ""),
-              weight: (weight ? weight : 0),
+              weight: (weight ? parseInt(weight) : 0),
               fitness: (fitness ? fitness : ""),
               days: (days ? days : ""),
               weather: (weather ? weather : ""),
               features: (features ? features :""),
               activities: (activities ? activities : ""),
-              routes: (routes ? routes : "")
+              routes: (routes ? routes : ""),
+              temp: (temp ? parseInt(temp) : 0)
           }       
       // const newPostKey = push(child(ref(database), 'posts')).key;
       const updates = {};
@@ -132,16 +137,9 @@ function Tab5() {
             </IonSelect>
           </IonItem>
 
-          <IonItem>
-            <IonLabel>Favorite Weather Conditions</IonLabel>
-            <IonSelect placeholder="Make a Selection" multiple={true} onIonChange = {(ev) => setDays (ev.detail.value)}>
-              <IonSelectOption value="sunny">Sunny</IonSelectOption>
-              <IonSelectOption value="cloudy">Cloudy</IonSelectOption>
-              <IonSelectOption value="windy">Windy</IonSelectOption>
-              <IonSelectOption value="rainy">Rainy</IonSelectOption>
-              <IonSelectOption value="stormy">Stormy</IonSelectOption>
-              <IonCheckbox slot="end"></IonCheckbox>
-            </IonSelect>
+          <IonItem fill = "outline">
+            <IonLabel position="floating">Enter Ideal Temperature to Hike</IonLabel>
+            <IonInput type="number" id="temp" value={temp} onIonChange = {(e) => handleInputChange (e)} placeholder="55"></IonInput>
           </IonItem>
 
           <IonItem>

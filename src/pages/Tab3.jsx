@@ -12,6 +12,7 @@ import { starSharp } from 'ionicons/icons';
 function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [weatherData, setWeatherData] = useState([]);
 
   const [currentWeather, setCurrentWeather] = useState(null);
   const [futureWeather, setFutureWeather] = useState(null);
@@ -161,6 +162,16 @@ const getWeather = async () => {
     setFutureWeather (future_data);
 }
 
+async function getWeatherCoords (coords) {
+  const query = `${ coords[0] },${ coords[1]}`;
+  const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=f93eb660b2424258bf5155016210712&q=${ query }`);
+  const current_data = await response.json();
+  const days = 10;
+  const forecast_response = await fetch (`https://api.weatherapi.com/v1/forecast.json?key=f93eb660b2424258bf5155016210712&q=${ query }&days=${ days }`);
+  const future_data = await forecast_response.json();
+  return future_data;
+}
+
   useEffect(() => {
     if (currentWeather == undefined || futureWeather == undefined)
     {
@@ -180,6 +191,9 @@ const getWeather = async () => {
     fetch (url)
       .then((response) => response.json())
       .then((actualTrailData) => {
+
+        var temp_array = [];
+
         for (var i = 0; i < actualTrailData.length; i++) {
           var trail = actualTrailData[i];
           var trailFeatures = trail["features"];
@@ -190,9 +204,15 @@ const getWeather = async () => {
           let activityDifferences = trailActivities.filter(x => !userData["activities"].includes(x));
           actualTrailData[i]["features"] = featureIntersection.concat(featureDifferences);
           actualTrailData[i]["activities"] = activityIntersection.concat(activityDifferences);
+
+          var latitude = actualTrailData[i]["latitude"];
+          var longitude = actualTrailData[i]["longitude"];
+          let weather = getWeatherCoords ([latitude, longitude]);
+          temp_array.push (weather);
         }
 
         setTrailData(actualTrailData);
+        setWeatherData(temp_array);
         })
         .catch((error) => {
           console.log(error.message);
@@ -237,6 +257,7 @@ const getWeather = async () => {
                 </div>}
                 <div><li>{" • "}</li></div>
                 <li><IonIcon icon={starSharp} color="grey"/>{" " + item.avg_rating.toFixed(1) + " (" + item.num_reviews + ")"}</li>
+                {/* <li>{weatherData[index].current.feelslike_f}</li> */}
               </ul>
             </IonCardSubtitle>
             <IonCardTitle>{item.name}</IonCardTitle>
@@ -279,6 +300,7 @@ const getWeather = async () => {
               The next day with your ideal weather conditions will be 3 days from now on Monday! ☀️
               {console.log ("Current Weather", currentWeather)}
               {console.log ("Future Weather", futureWeather)}
+              {console.log ("WeatherData", weatherData)}
               
               {(currentWeather && futureWeather)
                 ?
