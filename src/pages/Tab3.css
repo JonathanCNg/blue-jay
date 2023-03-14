@@ -186,6 +186,7 @@ ul {
     display: inline;
     padding-right: 5px;
     float: left;
+    justify-content: center;
 }
 .coolHeader ul div li{
     display: inline;

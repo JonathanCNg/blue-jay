@@ -13,6 +13,7 @@ function Tab3() {
   const [trailData, setTrailData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
+  const [trailCurrWeather, setTrailCurrWeather] = useState([]);
 
   const [currentWeather, setCurrentWeather] = useState(null);
   const [futureWeather, setFutureWeather] = useState(null);
@@ -193,6 +194,7 @@ async function getWeatherCoords (coords) {
       .then(async (actualTrailData) => {
 
         var temp_array = [];
+        var trail_curr_weather = [];
 
         for (var i = 0; i < actualTrailData.length; i++) {
           var trail = actualTrailData[i];
@@ -212,20 +214,24 @@ async function getWeatherCoords (coords) {
         }
         console.log ("temparr", temp_array[0])
         for (var j = 0; j < temp_array.length; j++) {
-          let temps = [temp_array[j].forecast.forecastday[0].day.avgtemp_f,temp_array[j].forecast.forecastday[1].day.avgtemp_f,temp_array[j].forecast.forecastday[2].day.avgtemp_f,]
-          temp_array[j] = [Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[0].day.avgtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[1].day.avgtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[2].day.avgtemp_f)]
-          let index = temp_array[j].indexOf(Math.min(temp_array[j]))
+          let temps = [temp_array[j].forecast.forecastday[0].day.maxtemp_f,temp_array[j].forecast.forecastday[1].day.maxtemp_f,temp_array[j].forecast.forecastday[2].day.maxtemp_f,]
+          trail_curr_weather.push (temp_array[j].current.temp_f);
+          temp_array[j] = [Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[0].day.maxtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[1].day.maxtemp_f), Math.abs(userData["temp"]-temp_array[j].forecast.forecastday[2].day.maxtemp_f)]
+          let index = temp_array[j].indexOf(Math.min(...temp_array[j]))
+          var closest_temp = temps[index].toString();
           if (index === 0) {
-            temp_array[j] = " today because the weather will be closest to your liking!"
+            temp_array[j] = " today because the weather will be closest to your liking at with a high of " + closest_temp + "°F! 💚"
           } else if (index === 1) {
-            temp_array[j] = " tomorrow because the weather will be closest to your liking!"
+            temp_array[j] = " tomorrow because the weather will be closest to your liking at with a high of " + closest_temp + "°F! 💚"
           } else {
-            temp_array[j] = " the day after tomorrow because the weather will be closest to your liking at " + Math.min(temps) + "*F :)!"
+            temp_array[j] = " the day after tomorrow because the weather will be closest to your liking with a high of " + closest_temp + "°F! 💚"
           }
         }
         console.log ("temparr after", temp_array[0])
         setTrailData(actualTrailData);
         setWeatherData(temp_array);
+        console.log("trail_curr_weather", trail_curr_weather)
+        setTrailCurrWeather(trail_curr_weather);
         })
         .catch((error) => {
           console.log(error.message);
@@ -269,8 +275,9 @@ async function getWeatherCoords (coords) {
                   <li>{routeName[item.route_type]}</li>
                 </div>}
                 <div><li>{" • "}</li></div>
-                <li><IonIcon icon={starSharp} color="grey"/>{" " + item.avg_rating.toFixed(1) + " (" + item.num_reviews + ")"}</li>
-                {/* <li>{weatherData[index].current.feelslike_f}</li> */}
+                <div><li><IonIcon icon={starSharp} color="grey"/>{" " + item.avg_rating.toFixed(1) + " (" + item.num_reviews + ")"}</li></div>
+                <div><li>{" • "}</li></div>
+                <li>{trailCurrWeather[index]}°F</li>
               </ul>
             </IonCardSubtitle>
             <IonCardTitle>{item.name}</IonCardTitle>
